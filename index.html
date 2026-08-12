@@ -37,7 +37,16 @@
   <iframe id="app" allow="clipboard-write" title="JM Basket POS"></iframe>
   <script>
     // always load the newest version of the store (cache-busted on every open)
-    document.getElementById('app').src = 'https://script.google.com/macros/s/AKfycbzDBb-_3UdZBoywFROEpqj1j1-mlhekx-UBBesgum4XkXQcltWdaZAyn1DChjNAoukz5A/exec' + '?pwa=' + Date.now();
+    var APP_URL = 'https://script.google.com/macros/s/AKfycbzDBb-_3UdZBoywFROEpqj1j1-mlhekx-UBBesgum4XkXQcltWdaZAyn1DChjNAoukz5A/exec';
+    function loadApp(){ document.getElementById('app').src = APP_URL + '?pwa=' + Date.now(); }
+    loadApp();
+    // if the app was left in the background for a while, reload it on return
+    // so phones always pick up the newest deployed version
+    var hiddenAt = 0;
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'hidden') { hiddenAt = Date.now(); }
+      else if (hiddenAt && Date.now() - hiddenAt > 10 * 60 * 1000) { loadApp(); hiddenAt = 0; }
+    });
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js'); });
     }
