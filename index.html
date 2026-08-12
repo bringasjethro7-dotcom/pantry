@@ -34,8 +34,10 @@
     <div>Opening JM Basket&hellip;</div>
     <div style="font-size:12.5px">Stuck? <a href="https://script.google.com/macros/s/AKfycbzDBb-_3UdZBoywFROEpqj1j1-mlhekx-UBBesgum4XkXQcltWdaZAyn1DChjNAoukz5A/exec">Tap here to open the store</a></div>
   </div>
-  <iframe src="https://script.google.com/macros/s/AKfycbzDBb-_3UdZBoywFROEpqj1j1-mlhekx-UBBesgum4XkXQcltWdaZAyn1DChjNAoukz5A/exec" allow="clipboard-write" title="JM Basket POS"></iframe>
+  <iframe id="app" allow="clipboard-write" title="JM Basket POS"></iframe>
   <script>
+    // always load the newest version of the store (cache-busted on every open)
+    document.getElementById('app').src = 'https://script.google.com/macros/s/AKfycbzDBb-_3UdZBoywFROEpqj1j1-mlhekx-UBBesgum4XkXQcltWdaZAyn1DChjNAoukz5A/exec' + '?pwa=' + Date.now();
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js'); });
     }

@@ -1,5 +1,5 @@
 // JM Basket PWA - minimal service worker
-const CACHE = 'jmb-shell-v1';
+const CACHE = 'jmb-shell-v2';
 const SHELL = ['./', 'index.html', 'manifest.json', 'icons/icon-192.png', 'icons/icon-512.png'];
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(SHELL); }).then(function(){ return self.skipWaiting(); }));
